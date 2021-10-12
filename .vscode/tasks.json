@@ -1,0 +1,52 @@
+// tasks.json
+{
+    // https://code.visualstudio.com/docs/editor/tasks
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",  // 任务名。launch.json中会调用这个名字
+            "type": "shell",   // 任务类型。shell:在命令行中执行，或process:作为进程执行。
+            "command": "g++",  // 要执行的指令。
+            "linux": {         // Linux 系统下的替代属性
+                "command": "/usr/bin/g++"
+            },
+            "args": [          // 指令的参数列表
+                "${file}",      // 当前文件名
+                "-o",           // 对象名，不进行编译优化
+                "${fileBasenameNoExtension}.exe",  // 当前文件名（去掉扩展名）
+            ],
+            // 以上部分，就是在shell命令行中执行（假设文件名为filename.cpp）
+            // --> g++ filename.cpp -o filename.exe
+            "group": {          // 任务分组
+                "kind": "build",    // 任务分组标签
+                "isDefault": true   // 默认执行组
+                // 可以连着执行一系列同一个组内的任务
+                // 在Command Palette(F1 / Ctrl+Shift+P) 输入--> run build task来运行
+                // 同理，若任务分组是test，你就可以用--> run test task来运行 
+            },
+            "options": {       // 其他命令选项
+                "cwd": "${workspaceFolder}"   // 执行指令的位置
+            },
+            "problemMatcher": [
+                "$gcc" // 使用gcc捕获错误
+            ],
+            "presentation": {   // 输出界面形式
+                "reveal": "always", // 总是显示
+                "panel": "shared"      // 新建1个终端显示结果
+            },
+            "dependsOrder": "sequence",     // 按顺序执行前置任务
+            "dependsOn": ["echo test 1", "echo test 2"]   // 前置任务
+
+        },
+        {
+            "label": "echo test 1",
+            "type": "shell",
+            "command": "echo Hello Test: task 1!"
+        },
+        {
+            "label": "echo test 2",
+            "type": "shell",
+            "command": "echo Hello Test: task 2!"
+        }
+    ]
+}
