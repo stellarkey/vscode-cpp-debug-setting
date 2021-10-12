@@ -30,18 +30,13 @@
                 "panel": "shared"
             },
             "dependsOrder": "sequence",
-            "dependsOn": ["echo test 1", "echo test 2"]
+            "dependsOn": ["echo test"]
 
         },
         {
-            "label": "echo test 1",
+            "label": "echo test",
             "type": "shell",
-            "command": "echo Hello Test: task 1!"
-        },
-        {
-            "label": "echo test 2",
-            "type": "shell",
-            "command": "echo Hello Test: task 2!"
+            "command": "echo Start building..."
         }
     ]
 }
